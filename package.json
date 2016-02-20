@@ -13,7 +13,7 @@
   },
   "keywords": [],
   "author": "Yizheng Ding <tinirdoc@gmail.com> (http://fork-exec-bash.com)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tinirlove/countdown-menubar--text/issues"
   },
