@@ -1,0 +1,24 @@
+{
+  "name": "countdown-menubar--text",
+  "version": "0.0.0",
+  "description": "countdown app lives in menubar with a non-gui interface",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tinirlove/countdown-menubar--text.git"
+  },
+  "keywords": [],
+  "author": "Yizheng Ding <tinirdoc@gmail.com> (http://fork-exec-bash.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tinirlove/countdown-menubar--text/issues"
+  },
+  "homepage": "https://github.com/tinirlove/countdown-menubar--text#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.8"
+  }
+}

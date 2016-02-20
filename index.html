@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="src/style/main.css"> -->
+</head>
+<body>
+  <form>
+    <label>
+      <span>Event Name</span>
+      <input type="text" pattern="^\w" required>
+    </label>
+    <label>
+      <span>Event Date</span>
+      <input type="text" placeholder="2016/05/12" pattern="\d{4}[\/-]\d{2}[\/-]\d{2}" required>
+    </label>
+    <input type="reset" value="Clear" onclick="clearForm()">
+    <input type="submit" value="Submit">
+  </form>
+  <script>
+  'use strict';
+
+  const ipcRenderer = require('electron').ipcRenderer;
+
+  let eventId;
+  let textInputs = document.querySelectorAll('input[type="text"]');
+  // ipcRenderer.sendSync('editOrCreate', window.countdownEvent, window.countdownDate);
+
+  document.querySelector('input[type="submit"]').addEventListener('click', submitForm, false);
+
+  ipcRenderer.on('eventData', function(event, msg) {
+    const eventObj = JSON.parse(msg);
+    eventId = eventObj ? eventObj[2] : undefined;
+    if (eventId !== undefined) {
+      Array.prototype.forEach.call(textInputs, (input, i) => {
+        input.value = eventObj[i];
+      });
+    }
+  });
+
+  function clearForm() {
+    Array.prototype.forEach.call(textInputs, (input) => {
+      input.value = '';
+    });
+  }
+
+  function submitForm(e) {
+    e.preventDefault();
+
+    const updatedData = Array.prototype.map.call(textInputs, (input) => input.value);
+
+    console.log(updatedData);
+
+    ipcRenderer.send('editOrCreate', JSON.stringify(updatedData.concat([eventId])));
+
+    ipcRenderer.on('updated', (ev, msg) => {
+      alert(msg);
+      window.close();
+    });
+  }
+  </script>
+</body>
+</html>
