@@ -8,25 +8,26 @@ const Tray = electron.Tray;
 const dialog = electron.dialog;
 const BrowserWindow = electron.BrowserWindow;
 const ipcMain = electron.ipcMain;
-
-
 const path = require('path');
 
 let countdownIcon = null;
 
-let countdowns;
+let countdowns = undefined;
 
 const userDataFileStorage = `${app.getPath('userData')}/events.js`;
 
 fs.access(userDataFileStorage, fs.F_OK && fs.R_OK && fs.W_OK, (err) => {
   if (err) {
     console.log('cannot access or not exist');
-
-    countdowns = [];
   } else {
-    countdowns = JSON.parse(fs.readFileSync(userDataFileStorage));
+    const storageContent = fs.readFileSync(userDataFileStorage, 'utf8');
+    countdowns = JSON.parse(storageContent);
   }
 });
+
+if (!countdowns) {
+  countdowns = [];
+}
 
 
 function createInputBrowserWIndow(eventObj) {
@@ -116,7 +117,9 @@ const EDIT_COUNTDOWN = (eventObj) => {
 
 app.on('ready', function(){
   // app icons
-  countdownIcon = new Tray(path.join(__dirname, '/menubar-icon-alt.png'));
+
+  // get from https://icons8.com/c/flat-color-icons
+  countdownIcon = new Tray(path.join(__dirname, '/icon.png'));
   // countdownIcon.setPressedImage(path.join(__dirname, 'menubar-icon-alt.png'));
 
 

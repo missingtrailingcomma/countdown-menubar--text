@@ -5,19 +5,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="stylesheet" href="src/style/main.css"> -->
+  <style>
+  html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Helvetica Neue', 'Avenir Next', Verdana, sans-serif;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    padding: 0.5rem;
+  }
+
+  .form__label {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+  }
+
+  .form__text {
+    flex: 0 0 6rem;
+  }
+
+  .form__input {
+    flex: 1 1 auto;
+  }
+
+  .form__text,
+  .form__input {
+    margin: 0 0.5rem;
+  }
+
+  .form__actions {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  .form__reset,
+  .form__submit {
+    flex: 1 1 30%;
+    margin: 0 0.5rem;
+  }
+
+
+  </style>
 </head>
 <body>
-  <form>
-    <label>
-      <span>Event Name</span>
-      <input type="text" pattern="^\w" required>
+  <form class="form">
+    <label class="form__label">
+      <span class="form__text">Event Name</span>
+      <input class="form__input" type="text" pattern="^\w" required>
     </label>
-    <label>
-      <span>Event Date</span>
-      <input type="text" placeholder="2016/05/12" pattern="\d{4}[\/-]\d{2}[\/-]\d{2}" required>
+    <label class="form__label">
+      <span class="form__text">Event Date</span>
+      <input class="form__input" type="text" placeholder="2016/05/12" pattern="\d{4}[\/-]\d{2}[\/-]\d{2}" required>
     </label>
-    <input type="reset" value="Clear" onclick="clearForm()">
-    <input type="submit" value="Submit">
+    <div class="form__actions">
+      <input class="form__reset" type="reset" value="Clear" onclick="clearForm()">
+      <input class="form__submit" type="submit" value="Submit">
+    </div>
   </form>
   <script>
   'use strict';
